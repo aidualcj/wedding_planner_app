@@ -1,0 +1,23 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  description: MyText
+  due_date: 2024-10-03
+  status: MyString
+  assigned_to_name: MyString
+  assigned_to_email: MyString
+  event: one
+  guest: one
+  category: one
+
+two:
+  name: MyString
+  description: MyText
+  due_date: 2024-10-03
+  status: MyString
+  assigned_to_name: MyString
+  assigned_to_email: MyString
+  event: two
+  guest: two
+  category: two
