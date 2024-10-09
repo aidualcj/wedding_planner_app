@@ -10,9 +10,82 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_10_03_162703) do
+ActiveRecord::Schema[7.1].define(version: 2024_10_03_164806) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "categories", force: :cascade do |t|
+    t.string "name"
+    t.bigint "event_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_categories_on_event_id"
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.string "name"
+    t.date "date"
+    t.string "event_type"
+    t.integer "estimated_guests"
+    t.text "description"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_events_on_user_id"
+  end
+
+  create_table "expenses", force: :cascade do |t|
+    t.string "description"
+    t.decimal "amount"
+    t.bigint "event_id", null: false
+    t.bigint "category_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_expenses_on_category_id"
+    t.index ["event_id"], name: "index_expenses_on_event_id"
+  end
+
+  create_table "guests", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.string "email"
+    t.string "phone_number"
+    t.string "group"
+    t.string "diet"
+    t.string "rsvp_status"
+    t.bigint "event_id", null: false
+    t.integer "primary_guest_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_guests_on_event_id"
+  end
+
+  create_table "locations", force: :cascade do |t|
+    t.string "location_type"
+    t.integer "capacity"
+    t.text "notes"
+    t.bigint "event_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_locations_on_event_id"
+  end
+
+  create_table "tasks", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.date "due_date"
+    t.string "status"
+    t.string "assigned_to_name"
+    t.string "assigned_to_email"
+    t.bigint "event_id", null: false
+    t.bigint "guest_id", null: false
+    t.bigint "category_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_tasks_on_category_id"
+    t.index ["event_id"], name: "index_tasks_on_event_id"
+    t.index ["guest_id"], name: "index_tasks_on_guest_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -26,4 +99,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_03_162703) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "categories", "events"
+  add_foreign_key "events", "users"
+  add_foreign_key "expenses", "categories"
+  add_foreign_key "expenses", "events"
+  add_foreign_key "guests", "events"
+  add_foreign_key "locations", "events"
+  add_foreign_key "tasks", "categories"
+  add_foreign_key "tasks", "events"
+  add_foreign_key "tasks", "guests"
 end

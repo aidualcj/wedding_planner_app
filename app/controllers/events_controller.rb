@@ -21,16 +21,14 @@ class EventsController < ApplicationController
 
   # POST /events or /events.json
   def create
+    # Associe l'utilisateur par défaut à l'événement
     @event = Event.new(event_params)
+    @event.user = User.first  # Utilise le premier utilisateur existant (à remplacer plus tard avec current_user)
 
-    respond_to do |format|
-      if @event.save
-        format.html { redirect_to @event, notice: "Event was successfully created." }
-        format.json { render :show, status: :created, location: @event }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @event.errors, status: :unprocessable_entity }
-      end
+    if @event.save
+      redirect_to @event, notice: 'Event was successfully created.'
+    else
+      render :new
     end
   end
 
@@ -65,6 +63,6 @@ class EventsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def event_params
-      params.require(:event).permit(:name, :date, :event_type, :estimated_guests, :description, :user_id)
+      params.require(:event).permit(:name, :date, :event_type, :estimated_guests, :description)
     end
 end
