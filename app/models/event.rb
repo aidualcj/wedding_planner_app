@@ -5,4 +5,9 @@ class Event < ApplicationRecord
   has_many :expenses, dependent: :destroy
   has_many :locations, dependent: :destroy
   has_many :categories, dependent: :destroy
+
+   # Validations
+   validates :name, presence: true
+   validates :date, presence: true
+   validates :event_type, presence: true
 end
