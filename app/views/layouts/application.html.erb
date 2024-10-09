@@ -6,11 +6,15 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags %>
+    <!-- Lier le fichier CSS généré -->
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbo-track': 'reload' %>
+
+    <!-- Lier le pack JavaScript Webpacker -->
+    <%= javascript_pack_tag 'main', 'data-turbo-track': 'reload' %>
   </head>
 
   <body>
+    <div id="root"></div> <!-- Conteneur pour React -->
     <%= yield %>
   </body>
 </html>

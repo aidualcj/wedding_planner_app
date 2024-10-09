@@ -1,3 +1,25 @@
-// Configure your import map in config/importmap.rb. Read more: https://github.com/rails/importmap-rails
+// app/javascript/application.js
+
+// Import Stimulus
+import { Application } from "@hotwired/stimulus"
+import { definitionsFromContext } from "stimulus/webpack-helpers"
+
+const application = Application.start()
+const context = require.context("./controllers", true, /\.js$/)
+application.load(definitionsFromContext(context))
+
+// Import Turbo
 import "@hotwired/turbo-rails"
-import "controllers"
+
+// Import React
+import React from 'react';
+import ReactDOM from 'react-dom';
+import HelloReact from './components/hello_react';
+
+// Render the HelloReact component into the root element
+document.addEventListener('DOMContentLoaded', () => {
+  const rootElement = document.getElementById('root');
+  if (rootElement) {
+    ReactDOM.render(<HelloReact />, rootElement);
+  }
+});

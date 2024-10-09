@@ -26,6 +26,10 @@ gem "stimulus-rails"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
 
+gem 'react-rails'
+
+gem 'webpacker'
+
 # Gemfile
 gem 'devise'
 
