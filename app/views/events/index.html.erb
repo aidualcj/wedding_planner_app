@@ -1,14 +1,11 @@
-<p style="color: green"><%= notice %></p>
+<h1>Your Wedding Events</h1>
+<%= link_to 'Create New Event', new_event_path, class: 'btn btn-primary' %>
 
-<h1>Events</h1>
-
-<div id="events">
-  <% @events.each do |event| %>
-    <%= render event %>
-    <p>
-      <%= link_to "Show this event", event %>
-    </p>
-  <% end %>
-</div>
-
-<%= link_to "New event", new_event_path %>
+<!-- Display all events here -->
+<% @events.each do |event| %>
+  <div>
+    <h3><%= event.name %></h3>
+    <p><%= event.description %></p>
+    <%= link_to 'Show', event_path(event) %>
+  </div>
+<% end %>

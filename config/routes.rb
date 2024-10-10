@@ -1,15 +1,14 @@
 Rails.application.routes.draw do
+  get 'pages/home'
+ root to: 'pages#home'
+
+devise_for :users
+
+authenticated :user do
+  root to: 'events#index', as: :authenticated_root
+end
+
+get 'dashboard', to: 'events#index', as: :dashboard
+
   resources :events
-  root to: 'events#index' # Par exemple, la page d'accueil pointe vers l'index des événements
-
-  # Ajoute cette ligne pour Devise
-  devise_for :users
-
-  resources :events do
-    resources :locations
-    resources :guests
-    resources :tasks
-    resources :expenses
-    resources :categories
-  end
 end
