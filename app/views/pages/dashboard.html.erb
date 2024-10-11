@@ -1,0 +1,9 @@
+<!-- dashboard.html.erb -->
+<h1>Your Wedding Events</h1>
+<p>Manage your events below:</p>
+<%= link_to 'Create New Event', new_event_path %>
+<ul>
+  <% @events.each do |event| %>
+    <li><%= event.name %>: <%= link_to 'Show', event_path(event) %></li>
+  <% end %>
+</ul>

@@ -1,14 +1,12 @@
 Rails.application.routes.draw do
   devise_for :users
 
-  get 'pages/home'
-  root to: 'pages#home'
+  root to: "pages#home"
+  get 'dashboard', to: 'pages#dashboard'
 
-  authenticated :user do
-    root to: 'events#index', as: :authenticated_root
+  resources :events do
+    resources :guests
+    resources :tasks
+    resources :expenses
   end
-
-  get 'dashboard', to: 'events#index', as: :dashboard
-
-  resources :events
 end

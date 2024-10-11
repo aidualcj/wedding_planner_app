@@ -1,70 +1,57 @@
+# app/controllers/guests_controller.rb
 class GuestsController < ApplicationController
-  before_action :set_guest, only: %i[ show edit update destroy ]
+  before_action :set_event
+  before_action :set_guest, only: [:show, :edit, :update, :destroy]
 
-  # GET /guests or /guests.json
   def index
-    @guests = Guest.all
+    @event = Event.find(params[:event_id])
+    @guests = @event.guests
   end
 
-  # GET /guests/1 or /guests/1.json
   def show
+    # Affiche les détails d'un invité
   end
 
-  # GET /guests/new
   def new
-    @guest = Guest.new
+    @guest = @event.guests.build
   end
 
-  # GET /guests/1/edit
+  def create
+    @guest = @event.guests.build(guest_params)
+    if @guest.save
+      redirect_to event_guests_path(@event), notice: 'Guest was successfully added.'
+    else
+      render :new
+    end
+  end
+
   def edit
   end
 
-  # POST /guests or /guests.json
-  def create
-    @guest = Guest.new(guest_params)
-
-    respond_to do |format|
-      if @guest.save
-        format.html { redirect_to @guest, notice: "Guest was successfully created." }
-        format.json { render :show, status: :created, location: @guest }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @guest.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PATCH/PUT /guests/1 or /guests/1.json
   def update
-    respond_to do |format|
-      if @guest.update(guest_params)
-        format.html { redirect_to @guest, notice: "Guest was successfully updated." }
-        format.json { render :show, status: :ok, location: @guest }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @guest.errors, status: :unprocessable_entity }
-      end
+    if @guest.update(guest_params)
+      redirect_to event_guest_path(@event, @guest), notice: 'Guest was successfully updated.'
+    else
+      render :edit
     end
   end
 
-  # DELETE /guests/1 or /guests/1.json
   def destroy
-    @guest.destroy!
-
-    respond_to do |format|
-      format.html { redirect_to guests_path, status: :see_other, notice: "Guest was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    @guest.destroy
+    redirect_to event_guests_path(@event), notice: 'Guest was successfully removed.'
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_guest
-      @guest = Guest.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def guest_params
-      params.require(:guest).permit(:first_name, :last_name, :email, :phone_number, :group, :diet, :rsvp_status, :event_id, :primary_guest_id)
-    end
+  def set_event
+    @event = Event.find(params[:event_id])
+  end
+
+  def set_guest
+    @guest = @event.guests.find(params[:id])
+  end
+
+  def guest_params
+    params.require(:guest).permit(:first_name, :last_name, :email, :phone_number, :group, :diet, :rsvp_status, :event_id, :primary_guest_id)
+  end
 end

@@ -1,10 +1,11 @@
-<p style="color: green"><%= notice %></p>
+<!-- app/views/guests/show.html.erb -->
+<h1>Guest Details</h1>
 
-<%= render @guest %>
+<p><strong>Name:</strong> <%= @guest.full_name %></p>
+<p><strong>Email:</strong> <%= @guest.email %></p>
+<p><strong>Phone:</strong> <%= @guest.phone_number %></p>
+<p><strong>Dietary Preferences:</strong> <%= @guest.diet %></p>
 
-<div>
-  <%= link_to "Edit this guest", edit_guest_path(@guest) %> |
-  <%= link_to "Back to guests", guests_path %>
-
-  <%= button_to "Destroy this guest", @guest, method: :delete %>
-</div>
+<%= link_to 'Edit Guest', edit_event_guest_path(@event, @guest), class: 'btn btn-primary' %> |
+<%= link_to 'Back to Guests List', event_guests_path(@event), class: 'btn btn-secondary' %> |
+<%= button_to 'Delete Guest', event_guest_path(@event, @guest), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>

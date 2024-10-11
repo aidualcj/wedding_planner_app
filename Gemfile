@@ -31,6 +31,10 @@ gem 'react-rails'
 gem 'webpacker'
 
 # Gemfile
+gem 'simple_form'
+
+
+# Gemfile
 gem 'devise'
 
 # Use Redis adapter to run Action Cable in production

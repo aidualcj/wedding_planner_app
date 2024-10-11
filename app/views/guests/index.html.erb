@@ -1,14 +1,38 @@
-<p style="color: green"><%= notice %></p>
+<!-- app/views/guests/index.html.erb -->
+<h1>Guests for <%= @event.name %></h1>
 
-<h1>Guests</h1>
+<%= link_to 'Add New Guest', new_event_guest_path(@event), class: 'btn btn-primary' %>
 
-<div id="guests">
-  <% @guests.each do |guest| %>
-    <%= render guest %>
-    <p>
-      <%= link_to "Show this guest", guest %>
-    </p>
-  <% end %>
-</div>
+<table>
+  <thead>
+    <tr>
+      <th>Statut</th>
+      <th>Prénom</th>
+      <th>Nom</th>
+      <th>Email</th>
+      <th>Téléphone</th>
+      <th>Groupe</th>
+      <th>Régime</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @guests.each do |guest| %>
+      <tr>
+        <td><%= guest.rsvp_status %></td>
+        <td><%= guest.first_name %></td>
+        <td><%= guest.last_name %></td>
+        <td><%= guest.email %></td>
+        <td><%= guest.phone_number %></td>
+        <td><%= guest.group %></td>
+        <td><%= guest.diet %></td>
+        <td>
+          <%= link_to 'Modifier', edit_event_guest_path(@event, guest), class: 'btn btn-warning' %> |
+          <%= link_to 'Effacer', event_guest_path(@event, guest), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
-<%= link_to "New guest", new_guest_path %>
+<%= link_to 'Mariage', event_path(@event) %>
