@@ -1,2 +1,9 @@
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
+<h1>Welcome to Wedding Planner</h1>
+<% if user_signed_in? %>
+  <!-- If user is signed in, redirect to events -->
+  <%= link_to 'Mon Mariage', dashboard_path, class: 'btn btn-primary' %>
+  <%= link_to 'Se déconnecter', destroy_user_session_path, method: :delete, class: 'btn btn-link' %>
+<% else %>
+  <!-- If user is not signed in, redirect to sign in page -->
+  <%= link_to 'Mon Mariage', new_user_session_path, class: 'btn btn-primary' %>
+<% end %>

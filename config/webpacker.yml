@@ -1,3 +1,5 @@
+# config/webpacker.yml
+
 # Note: You must restart bin/webpack-dev-server for changes to take effect
 
 default: &default
@@ -9,14 +11,13 @@ default: &default
   webpack_compile_output: true
 
   # Additional paths webpack should lookup modules
-  # ['app/assets', 'engine/foo/app/assets']
   additional_paths: []
 
   # Reload manifest.json on all requests so we reload latest compiled packs
   cache_manifest: false
 
   # Extract and emit a css file
-  extract_css: false
+  extract_css: true # Passe à true pour extraire et servir les CSS correctement
 
   static_assets_extensions:
     - .jpg
@@ -58,8 +59,7 @@ development:
     host: localhost
     port: 3035
     public: localhost:3035
-    hmr: false
-    # Inline should be set to true if using HMR
+    hmr: true # Active Hot Module Replacement (rechargement à chaud)
     inline: true
     overlay: true
     compress: true
@@ -71,7 +71,6 @@ development:
       'Access-Control-Allow-Origin': '*'
     watch_options:
       ignored: '**/node_modules/**'
-
 
 test:
   <<: *default
@@ -87,7 +86,7 @@ production:
   compile: false
 
   # Extract and emit a css file
-  extract_css: true
+  extract_css: true # Laisser à true pour l'extraction des fichiers CSS en production
 
   # Cache manifest.json for performance
   cache_manifest: true

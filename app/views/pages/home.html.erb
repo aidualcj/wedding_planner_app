@@ -1,8 +1,10 @@
 <h1>Welcome to Wedding Planner</h1>
 <% if user_signed_in? %>
-  <!-- If user is signed in, redirect to events -->
+  <!-- If user is signed in, redirect to dashboard -->
   <%= link_to 'Mon Mariage', dashboard_path, class: 'btn btn-primary' %>
+  <%= link_to 'Me déconnecter', destroy_user_session_path, method: :delete, data: { turbo: false },class: 'btn btn-danger' %>
 <% else %>
-  <!-- If user is not signed in, redirect to sign in page -->
-  <%= link_to 'Mon Mariage', new_user_session_path, class: 'btn btn-primary' %>
+  <!-- If user is not signed in, show "Me connecter" -->
+  <%= link_to 'Me connecter', new_user_session_path, class: 'btn btn-secondary' %>
+  <%= link_to 'Mon Mariage', new_user_registration_path, class: 'btn btn-primary' %>
 <% end %>
