@@ -1,10 +1,23 @@
-<p style="color: green"><%= notice %></p>
+<h1>Tâches dans <%= @task.category&.name || 'Sans catégorie' %> pour <%= @event.name %></h1>
 
-<%= render @task %>
+<ul>
+  <% @event.tasks.where(category: @task.category).each do |task| %>
+    <li>
+      <%= task.name %> - Assignée à: <%= task.assigned_to %> -
+      Date limite: <%= task.due_date || 'Non spécifiée' %>
+      <%= link_to 'Modifier', edit_event_task_path(@event, task) %> |
+      <%= link_to 'Supprimer', event_task_path(@event, task), method: :delete, data: { confirm: 'Are you sure?' } %>
+    </li>
+  <% end %>
+</ul>
 
-<div>
-  <%= link_to "Edit this task", edit_task_path(@task) %> |
-  <%= link_to "Back to tasks", tasks_path %>
+<h3>Ajouter une nouvelle tâche à cette catégorie</h3>
+<%= simple_form_for [@event, @task] do |f| %>
+  <%= f.input :name, label: 'Nom de la tâche' %>
+  <%= f.input :assigned_to, label: 'Assignée à' %>
+  <%= f.input :due_date, label: 'Date limite', as: :date %>
+  <%= f.input :category_id, as: :hidden, input_html: { value: @task.category_id } %>
+  <%= f.button :submit, 'Ajouter la tâche' %>
+<% end %>
 
-  <%= button_to "Destroy this task", @task, method: :delete %>
-</div>
+<%= link_to 'Retour aux to-do-lists', event_tasks_path(@event) %>

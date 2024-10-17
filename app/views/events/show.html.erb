@@ -1,19 +1,19 @@
 <!-- app/views/events/show.html.erb -->
 <h1><%= @event.name %></h1>
-<p><strong>Date:</strong> <%= @event.date %></p>
-<p><strong>Event type:</strong> <%= @event.event_type %></p>
-<p><strong>Estimated guests:</strong> <%= @event.estimated_guests %></p>
-<p><strong>Description:</strong> <%= @event.description %></p>
+<p><strong>Dates:</strong> <%= @event.date %></p>
+<p><strong>Type de réception:</strong> <%= @event.event_type %></p>
+<p><strong>Nombre d'invités estimé:</strong> <%= @event.estimated_guests %></p>
+<p><strong>À propos:</strong> <%= @event.description %></p>
 
-<h3>Manage Event</h3>
+<h3>Organisation</h3>
 <!-- Liens de navigation vers les différentes sections liées à cet événement -->
 <ul>
-  <li><%= link_to "Manage Guests", event_guests_path(@event) %></li>
-  <li><%= link_to "Manage Tasks", event_tasks_path(@event) %></li>
-  <li><%= link_to "Manage Expenses", event_expenses_path(@event) %></li>
+  <li><%= link_to "Les invités", event_guests_path(@event) %></li>
+  <li><%= link_to "Les missions", event_tasks_path(@event) %></li>
+  <li><%= link_to "Les dépenses", event_expenses_path(@event) %></li>
 </ul>
 
 <!-- Liens de navigation standard -->
-<%= link_to 'Edit this event', edit_event_path(@event) %> |
-<%= link_to 'Back to events', events_path %> |
-<%= button_to 'Destroy this event', @event, method: :delete, data: { confirm: 'Are you sure?' } %>
+<%= link_to 'Modifier mon mariage', edit_event_path(@event) %> |
+<%= link_to 'Retour', events_path %> |
+<%= button_to 'Supprimer cet évènement', @event, method: :delete, data: { confirm: 'Are you sure?' } %>

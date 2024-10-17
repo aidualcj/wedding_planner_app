@@ -1,10 +1,26 @@
-<p style="color: green"><%= notice %></p>
+<h1><%= @category.name %> - To-do-list</h1>
 
-<%= render @category %>
+<!-- Afficher les tâches existantes -->
+<h3>Tâches</h3>
+<ul>
+  <% @tasks.each do |task| %>
+    <li>
+      <%= task.name %> -
+      Assigné à : <%= task.assigned_to || "Non assignée" %>
+      <%# Ajouter des liens pour modifier ou supprimer la tâche %>
+      <%= link_to 'Modifier', edit_event_category_task_path(@event, @category, task), class: 'btn btn-warning' %>
+      <%= link_to 'Supprimer', event_category_task_path(@event, @category, task), method: :delete, data: { confirm: 'Es-tu sûr(e) ?' }, class: 'btn btn-danger' %>
+    </li>
+  <% end %>
+</ul>
 
-<div>
-  <%= link_to "Edit this category", edit_category_path(@category) %> |
-  <%= link_to "Back to categories", categories_path %>
-
-  <%= button_to "Destroy this category", @category, method: :delete %>
-</div>
+<!-- Formulaire pour ajouter une nouvelle tâche -->
+<h3>Ajouter une nouvelle tâche</h3>
+<%= simple_form_for [@event, @category, @task] do |f| %>
+  <div class="form-group">
+    <%= f.input :name, label: 'Nom de la tâche' %>
+    <%= f.input :assigned_to, label: 'Assigné à', collection: @event.guests.collect { |g| ["#{g.first_name} #{g.last_name}", g.id] }, prompt: 'Non assignée' %>
+    <%= f.input :due_date, label: 'Date limite' %> <!-- Si tu veux ajouter des dates -->
+    <%= f.button :submit, 'Ajouter la tâche', class: 'btn btn-primary' %>
+  </div>
+<% end %>

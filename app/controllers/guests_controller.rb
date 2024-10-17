@@ -13,11 +13,11 @@ class GuestsController < ApplicationController
   end
 
   def new
-    @guest = @event.guests.build
+    @guest = @event.guests.new
   end
 
   def create
-    @guest = @event.guests.build(guest_params)
+    @guest = @event.guests.new(guest_params)
     if @guest.save
       redirect_to event_guests_path(@event), notice: 'Guest was successfully added.'
     else

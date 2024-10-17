@@ -1,7 +1,6 @@
-<!-- app/views/guests/index.html.erb -->
-<h1>Guests for <%= @event.name %></h1>
+<h1>Nos invités au <%= @event.name %></h1>
 
-<%= link_to 'Add New Guest', new_event_guest_path(@event), class: 'btn btn-primary' %>
+<%= link_to 'Ajouter un invité', new_event_guest_path(@event), class: 'btn btn-primary' %>
 
 <table>
   <thead>

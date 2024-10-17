@@ -1,14 +1,44 @@
-<p style="color: green"><%= notice %></p>
+<h1>Les missions pour <%= @event.name %></h1>
 
-<h1>Tasks</h1>
-
-<div id="tasks">
-  <% @tasks.each do |task| %>
-    <%= render task %>
-    <p>
-      <%= link_to "Show this task", task %>
-    </p>
+<!-- Parcours des catégories et affichage des tâches associées -->
+<% @categories.each do |category| %>
+  <h2><%= category.name %></h2> <!-- Nom de la catégorie (to-do-list) -->
+  <ul>
+    <% category.tasks.each do |task| %>
+      <li>
+        <%= task.name %> - Assigné à : <%= task.assigned_to ? "#{task.assigned_to.first_name} #{task.assigned_to.last_name}" : "Non assigné" %>
+        <%= link_to 'Modifier', edit_event_task_path(@event, task), class: 'btn btn-warning' %>
+        <%= link_to 'Supprimer', event_task_path(@event, task), method: :delete, data: { confirm: 'Es-tu sûr(e) ?' }, class: 'btn btn-danger' %>
+      </li>
+    <% end %>
+  </ul>
+  <!-- Formulaire pour ajouter une tâche dans cette catégorie -->
+  <%= simple_form_for [@event, @task] do |f| %>
+    <%= f.hidden_field :category_id, value: category.id %>
+    <%= f.input :name, label: "Nouvelle tâche dans #{category.name}" %>
+    <%= f.input :assigned_to, label: 'Assignée à', collection: @event.guests.collect { |g| ["#{g.first_name} #{g.last_name}", g.id] }, prompt: 'Non assignée' %>
+    <%= f.input :due_date, label: 'Date limite' %> <!-- Optionnel -->
+    <%= f.button :submit, 'Ajouter la tâche', class: 'btn btn-primary' %>
   <% end %>
-</div>
+<% end %>
 
-<%= link_to "New task", new_task_path %>
+<!-- Tâches sans catégorie -->
+<h2>Sans catégorie</h2>
+<ul>
+  <% @tasks_without_category.each do |task| %>
+    <li>
+      <%= task.name %> - Assigné à : <%= task.assigned_to ? "#{task.assigned_to.first_name} #{task.assigned_to.last_name}" : "Non assigné" %>
+      <%= link_to 'Modifier', edit_event_task_path(@event, task), class: 'btn btn-warning' %>
+      <%= link_to 'Supprimer', event_task_path(@event, task), method: :delete, data: { confirm: 'Es-tu sûr(e) ?' }, class: 'btn btn-danger' %>
+    </li>
+  <% end %>
+</ul>
+
+<!-- Formulaire pour ajouter une tâche sans catégorie -->
+<%= simple_form_for [@event, Task.new] do |f| %>
+  <%= f.hidden_field :category_id, value: nil %>
+  <%= f.input :name, label: "Nouvelle tâche sans catégorie" %>
+  <%= f.input :assigned_to, label: 'Assignée à', collection: @event.guests.collect { |g| ["#{g.first_name} #{g.last_name}", g.id] }, prompt: 'Non assignée' %>
+  <%= f.input :due_date, label: 'Date limite' %> <!-- Optionnel -->
+  <%= f.button :submit, 'Ajouter la tâche', class: 'btn btn-primary' %>
+<% end %>
