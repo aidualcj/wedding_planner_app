@@ -2,19 +2,20 @@
 <html>
   <head>
     <title>WeddingPlannerApp</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1, shrink-to-fit=no">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <!-- Lier le fichier CSS généré -->
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-
-    <!-- Lier le pack JavaScript Webpacker -->
     <%= javascript_pack_tag 'main', 'data-turbolinks-track': 'reload' %>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   </head>
 
   <body>
-    <div id="root"></div> <!-- Conteneur pour React -->
+    <% if controller_name != 'pages' || action_name != 'home' %>
+      <%= render 'shared/navbar' %>
+    <% end %>
+    <div id="root"></div>
     <%= yield %>
   </body>
 </html>

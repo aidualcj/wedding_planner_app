@@ -33,6 +33,8 @@ gem 'webpacker'
 # Gemfile
 gem 'simple_form'
 
+gem 'sassc-rails'
+
 
 # Gemfile
 gem 'devise'

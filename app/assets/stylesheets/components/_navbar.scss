@@ -1,0 +1,26 @@
+.navbar {
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.9); /* Légèrement transparent */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Ombre légère */
+  padding: 10px 20px; /* Espacement */
+  display: flex;
+  justify-content: space-between; /* Espace entre les éléments */
+  align-items: center; /* Centre verticalement */
+}
+
+.navbar-title {
+  margin: 0; /* Supprime les marges */
+  font-size: 2rem; /* Taille du titre */
+}
+
+.navbar-right {
+  display: flex; /* Utiliser flex pour aligner horizontalement les éléments */
+  align-items: center; /* Centre verticalement les éléments */
+  margin-right: 20px;
+}
+
+.nav-link {
+  text-decoration: none; /* Supprime le soulignement */
+  color: #333; /* Couleur du texte */
+  margin-right: 20px; /* Espacement entre les liens */
+}

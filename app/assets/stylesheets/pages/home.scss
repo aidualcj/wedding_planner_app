@@ -1,0 +1,36 @@
+.home-container {
+  background-image: image-url('theweddingapp_home-unsplash.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh; /* Utilise toute la hauteur de la fenêtre */
+  margin: 0;
+  display: flex; /* Utiliser Flexbox pour centrer le contenu */
+  flex-direction: column; /* Aligne le contenu en colonne */
+  justify-content: center; /* Centre verticalement */
+  align-items: center; /* Centre horizontalement */
+  text-align: center; /* Centre le texte */
+  padding: 0;
+  width: 100%;
+}
+
+.home-title {
+  font-size: 2.5rem; /* Taille de police spécifique pour le titre de la homepage */
+  margin: 20px 0; /* Marges autour du titre */
+  color: #000; /* Couleur du texte, ajustez selon vos besoins */
+  text-align: center; /* Centrer le texte */
+}
+
+.btn-home {
+  background-color: #000000;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-align: center;
+  display: inline-block;
+  text-decoration: none;
+
+  &:hover {
+    background-color: #232322;
+  }
+}

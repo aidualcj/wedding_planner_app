@@ -1,11 +1,7 @@
 class PagesController < ApplicationController
-  before_action :authenticate_user!, only: [:dashboard]
+  before_action :authenticate_user! # S'assurer que l'utilisateur est connecté
 
   def home
-    # Logique pour la page d'accueil si nécessaire à faire plus tard
-  end
-
-  def dashboard
-    @events = current_user.events
+    @events = current_user.events # Récupérer les événements de l'utilisateur connecté
   end
 end

@@ -1,2 +1,9 @@
-<h1>Welcome to Your Wedding Planner</h1>
-<%= link_to 'Create an Event', new_event_path, class: 'btn btn-primary' %>
+<div class="home-container">
+  <h1 class="home-title">Welcome to Your Wedding Planner</h1> <!-- Ajoutez une classe spécifique -->
+
+  <% if @events.any? %>
+    <%= link_to 'Mon Événement', events_path, class: 'btn btn-home' %>
+  <% else %>
+    <%= link_to 'Créer un Événement', new_event_path, class: 'btn btn-home' %>
+  <% end %>
+</div>
