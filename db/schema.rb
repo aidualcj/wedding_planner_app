@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_10_09_141534) do
+ActiveRecord::Schema[7.1].define(version: 2024_10_17_124913) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -76,7 +76,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_09_141534) do
     t.date "due_date"
     t.string "status"
     t.string "assigned_to_name"
-    t.string "assigned_to_email"
     t.bigint "event_id", null: false
     t.bigint "guest_id"
     t.bigint "category_id"

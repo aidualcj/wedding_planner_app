@@ -1,8 +1,7 @@
 <h1>Les missions pour <%= @event.name %></h1>
 
-<!-- Parcours des catégories et affichage des tâches associées -->
 <% @categories.each do |category| %>
-  <h2><%= category.name %></h2> <!-- Nom de la catégorie (to-do-list) -->
+  <h2><%= category.name %></h2>
   <ul>
     <% category.tasks.each do |task| %>
       <li>
@@ -12,18 +11,11 @@
       </li>
     <% end %>
   </ul>
-  <!-- Formulaire pour ajouter une tâche dans cette catégorie -->
-  <%= simple_form_for [@event, @task] do |f| %>
-    <%= f.hidden_field :category_id, value: category.id %>
-    <%= f.input :name, label: "Nouvelle tâche dans #{category.name}" %>
-    <%= f.input :assigned_to, label: 'Assignée à', collection: @event.guests.collect { |g| ["#{g.first_name} #{g.last_name}", g.id] }, prompt: 'Non assignée' %>
-    <%= f.input :due_date, label: 'Date limite' %> <!-- Optionnel -->
-    <%= f.button :submit, 'Ajouter la tâche', class: 'btn btn-primary' %>
-  <% end %>
+
+  <!-- Render the form partial for each category -->
+  <%= render 'form', task: Task.new, event: @event, category: category %>
 <% end %>
 
-<!-- Tâches sans catégorie -->
-<h2>Sans catégorie</h2>
 <ul>
   <% @tasks_without_category.each do |task| %>
     <li>
@@ -34,11 +26,5 @@
   <% end %>
 </ul>
 
-<!-- Formulaire pour ajouter une tâche sans catégorie -->
-<%= simple_form_for [@event, Task.new] do |f| %>
-  <%= f.hidden_field :category_id, value: nil %>
-  <%= f.input :name, label: "Nouvelle tâche sans catégorie" %>
-  <%= f.input :assigned_to, label: 'Assignée à', collection: @event.guests.collect { |g| ["#{g.first_name} #{g.last_name}", g.id] }, prompt: 'Non assignée' %>
-  <%= f.input :due_date, label: 'Date limite' %> <!-- Optionnel -->
-  <%= f.button :submit, 'Ajouter la tâche', class: 'btn btn-primary' %>
-<% end %>
+<!-- Render the form partial for tasks without category -->
+<%= render 'form', task: Task.new, event: @event, category: nil %>

@@ -21,9 +21,8 @@ class EventsController < ApplicationController
 
   # POST /events or /events.json
   def create
-    # Associe l'utilisateur par défaut à l'événement
     @event = Event.new(event_params)
-    @event.user = User.first  # Utilise le premier utilisateur existant (à remplacer plus tard avec current_user)
+    @event.user = User.first
 
     if @event.save
       redirect_to @event, notice: 'Event was successfully created.'

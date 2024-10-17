@@ -6,8 +6,8 @@ Rails.application.routes.draw do
 
   resources :events do
     resources :guests
-    resources :tasks # pour les to-do-lists (tâches liées à un événement)
-    resources :categories, only: [:create] # pour la création des catégories
+    resources :tasks
+    resources :categories, only: [:create]
     resources :expenses
   end
 end

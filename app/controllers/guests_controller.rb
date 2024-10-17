@@ -1,4 +1,3 @@
-# app/controllers/guests_controller.rb
 class GuestsController < ApplicationController
   before_action :set_event
   before_action :set_guest, only: [:show, :edit, :update, :destroy]
